@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSJ Hospital Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary: #0d47a1;
+            --secondary: #f5faff;
+            --accent: #00bcd4;
+            --success: #43a047;
+            --danger: #e53935;
+            --nav-height: 72px;
+            --card-radius: 14px;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(13,71,161,0.12), rgba(0,188,212,0.10)), url('https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        .navbar .logo-area {
+            display: flex;
+            align-items: center;
+        }
+        .navbar img {
+            height: 50px;
+            margin-right: 18px;
+        }
+        .navbar .hospital-name {
+            color: #fff;
+            font-size: 1.7em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+        .navbar .nav-links button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.18s;
+        }
+        .navbar .nav-links button:hover {
+            background: rgba(0,188,212,0.18);
+        }
+        .main-content {
+            margin-top: calc(var(--nav-height) + 30px);
+            padding: 32px 40px 0 40px;
+            max-width: 1200px;
+        }
+        .welcome-section {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 32px 28px 24px 28px;
+            margin-bottom: 32px;
+        }
+        .welcome-section h2 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 2em;
+            font-weight: 700;
+        }
+        .welcome-section .clock {
+            color: var(--accent);
+            font-size: 1.1em;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+        .hospital-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        .hospital-info, .hospital-specializations, .hospital-success {
+            background: var(--secondary);
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 28px 24px;
+            flex: 1 1 320px;
+            min-width: 260px;
+            max-width: 370px;
+        }
+        .hospital-info h3,
+        .hospital-specializations h3,
+        .hospital-success h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.18em;
+            font-weight: 600;
+        }
+        .hospital-info p {
+            color: #333;
+            margin: 0 0 8px 0;
+            font-size: 1em;
+        }
+        .hospital-specializations ul {
+            margin: 0;
+            padding-left: 18px;
+            color: #222;
+        }
+        .hospital-specializations li {
+            margin-bottom: 7px;
+            font-size: 1em;
+        }
+        .hospital-success .rate {
+            font-size: 2.2em;
+            color: var(--success);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .hospital-success .desc {
+            font-size: 1em;
+            color: #333;
+        }
+        .quick-actions {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .action-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 28px 24px;
+            flex: 1 1 220px;
+            min-width: 220px;
+            max-width: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .action-card h3 {
+            margin: 0 0 12px 0;
+            color: var(--primary);
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+        .action-card button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.18s;
+        }
+        .action-card button:hover {
+            background: #0d47a1;
+        }
+        @media (max-width: 1100px) {
+            .main-content { padding: 24px 8px 0 8px; }
+            .hospital-details { flex-direction: column; gap: 18px; }
+            .quick-actions { flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-area">
+            <img src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png" alt="Hospital Logo">
+            <span class="hospital-name">RSJ Hospital</span>
+        </div>
+        <div class="nav-links">
+            <button onclick="location.href='dashboard.html'">Dashboard</button>
+            <button onclick="location.href='patients.html'">Patients</button>
+            <button onclick="location.href='doctors.html'">Doctors</button>
+            <button onclick="location.href='appointments.html'">Appointments</button>
+            <button onclick="location.href='billing.html'">Billing</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </nav>
+    <div class="main-content">
+        <section class="welcome-section">
+            <h2>Welcome to RSJ Hospital Management Dashboard</h2>
+            <div class="clock" id="clock"></div>
+            <p>
+                Manage all hospital operations efficiently: patient records, doctor schedules, appointments, and billing—all in one place.
+            </p>
+        </section>
+        <section class="hospital-details">
+            <div class="hospital-info">
+                <h3>About RSJ Hospital</h3>
+                <p><strong>Location:</strong> 123 Health Avenue, City Center</p>
+                <p><strong>Contact:</strong> +91 98765 43210 | info@rsjhospital.com</p>
+                <p>
+                    RSJ Hospital is a multi-specialty healthcare institution known for its patient-centric approach, advanced medical technology, and a team of highly qualified doctors and staff. We are committed to providing world-class healthcare services with compassion and excellence.
+                </p>
+            </div>
+            <div class="hospital-specializations">
+                <h3>Our Specializations</h3>
+                <ul>
+                    <li>Cardiology &amp; Heart Surgery</li>
+                    <li>Neurology &amp; Neurosurgery</li>
+                    <li>Orthopedics &amp; Joint Replacement</li>
+                    <li>Oncology (Cancer Care)</li>
+                    <li>Pediatrics &amp; Neonatology</li>
+                    <li>Gastroenterology</li>
+                    <li>Emergency &amp; Trauma Care</li>
+                </ul>
+            </div>
+            <div class="hospital-success">
+                <h3>Success Rate</h3>
+                <div class="rate">98.7%</div>
+                <div class="desc">
+                    Our hospital boasts one of the highest treatment success rates in the region, thanks to our expert team and state-of-the-art facilities.
+                </div>
+                <h3 style="margin-top:22px;">Accreditations</h3>
+                <div class="desc">
+                    NABH &amp; JCI Accredited<br>
+                    ISO 9001:2015 Certified
+                </div>
+            </div>
+        </section>
+        <section class="quick-actions">
+            <div class="action-card">
+                <h3>Manage Patients</h3>
+                <p>Add, view, or update patient details and medical records.</p>
+                <button onclick="location.href='patients.html'">Go to Patients</button>
+            </div>
+            <div class="action-card">
+                <h3>Manage Doctors</h3>
+                <p>View doctor profiles, specialties, and schedules.</p>
+                <button onclick="location.href='doctors.html'">Go to Doctors</button>
+            </div>
+            <div class="action-card">
+                <h3>Book Appointment</h3>
+                <p>Schedule new appointments and manage existing ones.</p>
+                <button onclick="location.href='appointments.html'">Book Appointment</button>
+            </div>
+            <div class="action-card">
+                <h3>Generate Bill</h3>
+                <p>Create and print bills for patient services.</p>
+                <button onclick="location.href='billing.html'">Generate Bill</button>
+            </div>
+        </section>
+    </div>
+    <script>
+        // Live clock
+        function updateClock() {
+            const now = new Date();
+            const pad = n => n < 10 ? '0' + n : n;
+            const timeStr = pad(now.getDate()) + '-' +
+                            pad(now.getMonth() + 1) + '-' +
+                            now.getFullYear() + ' ' +
+                            pad(now.getHours()) + ':' +
+                            pad(now.getMinutes()) + ':' +
+                            pad(now.getSeconds());
+            document.getElementById('clock').textContent = 'Date & Time: ' + timeStr;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function logout() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>

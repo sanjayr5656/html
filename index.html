@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSJ HOSPITAL - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: #fff;
+            max-width: 370px;
+            width: 100%;
+            padding: 40px 32px 32px 32px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-card img {
+            width: 80px;
+            margin-bottom: 18px;
+        }
+        .login-card h2 {
+            color: #1976d2;
+            margin-bottom: 18px;
+            font-size: 1.7em;
+            font-weight: 700;
+        }
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: 500;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 11px;
+            margin-bottom: 18px;
+            border: 1px solid #b0bec5;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #f7fafd;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #125ea7;
+        }
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            color: #d32f2f;
+            font-weight: bold;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png" alt="Hospital Logo">
+        <h2>RSJ Hospital Login</h2>
+        <form id="loginForm" autocomplete="off">
+            <label for="userid">User ID</label>
+            <input type="text" id="userid" name="userid" required autofocus>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+            <div class="message" id="message"></div>
+        </form>
+    </div>
+    <script>
+        // Demo users (simulate backend)
+        const users = {
+            admin: "1234",
+            doctor: "5678",
+            nurse: "0000"
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('userid').value;
+            const pass = document.getElementById('password').value;
+            const msg = document.getElementById('message');
+            if (users[user] && users[user] === pass) {
+                msg.style.color = "#388e3c";
+                msg.textContent = "✅ Login successful!";
+                setTimeout(() => window.location.href = "dashboard.html", 1200);
+            } else {
+                msg.style.color = "#d32f2f";
+                msg.textContent = "❌ Invalid credentials.";
+            }
+        });
+    </script>
+</body>
+</html>
