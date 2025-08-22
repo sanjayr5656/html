@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Bill</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5faff; }
+        .billing-card {
+            background: #fff;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 32px 28px;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+        }
+        .billing-card h2 { color: #1976d2; margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; color: #333; }
+        input[type="text"], input[type="number"] {
+            width: 100%; padding: 9px; margin-bottom: 16px;
+            border: 1px solid #b0bec5; border-radius: 5px; font-size: 15px;
+        }
+        button {
+            width: 100%; padding: 12px; background: #1976d2; color: #fff;
+            border: none; border-radius: 6px; font-size: 16px; font-weight: bold;
+            cursor: pointer; margin-top: 8px;
+        }
+        button:hover { background: #125ea7; }
+        .result-area {
+            margin-top: 22px; background: #e3f2fd; border-radius: 8px;
+            padding: 16px; min-height: 60px; white-space: pre-line; font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="billing-card">
+        <h2>Generate Bill</h2>
+        <form id="billingForm" autocomplete="off">
+            <label for="name">Patient Name:</label>
+            <input type="text" id="name" required>
+            <label for="consultationFee">Consultation Fee:</label>
+            <input type="number" id="consultationFee" required>
+            <label for="medicineCharges">Medicine Charges:</label>
+            <input type="number" id="medicineCharges" required>
+            <label for="roomCharges">Room Charges:</label>
+            <input type="number" id="roomCharges" required>
+            <button type="submit">Generate Bill</button>
+        </form>
+        <div class="result-area" id="resultArea"></div>
+    </div>
+    <script>
+        document.getElementById('billingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const consultationFee = document.getElementById('consultationFee').value.trim();
+            const medicineCharges = document.getElementById('medicineCharges').value.trim();
+            const roomCharges = document.getElementById('roomCharges').value.trim();
+            const resultArea = document.getElementById('resultArea');
+
+            if (!name || !consultationFee || !medicineCharges || !roomCharges) {
+                resultArea.textContent = "Please fill all fields.";
+                return;
+            }
+
+            fetch('http://localhost:8080/api/generate-bill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name, consultationFee, medicineCharges, roomCharges
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                resultArea.textContent = data.bill;
+            })
+            .catch(() => {
+                resultArea.textContent = "Server error. Please try again.";
+            });
+        });
+    </script>
+</body>
+</html>
