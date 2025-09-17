@@ -98,7 +98,7 @@
             gap: 32px;
             margin-bottom: 32px;
         }
-        .hospital-info, .hospital-specializations, .hospital-success {
+        .hospital-info, .hospital-specializations, .hospital-success, .hospital-vision, .hospital-facilities, .hospital-history {
             background: var(--secondary);
             border-radius: var(--card-radius);
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -109,14 +109,20 @@
         }
         .hospital-info h3,
         .hospital-specializations h3,
-        .hospital-success h3 {
+        .hospital-success h3,
+        .hospital-vision h3,
+        .hospital-facilities h3,
+        .hospital-history h3 {
             color: var(--primary);
             margin-top: 0;
             margin-bottom: 12px;
             font-size: 1.18em;
             font-weight: 600;
         }
-        .hospital-info p {
+        .hospital-info p,
+        .hospital-vision p,
+        .hospital-facilities ul,
+        .hospital-history p {
             color: #333;
             margin: 0 0 8px 0;
             font-size: 1em;
@@ -126,7 +132,8 @@
             padding-left: 18px;
             color: #222;
         }
-        .hospital-specializations li {
+        .hospital-specializations li,
+        .hospital-facilities li {
             margin-bottom: 7px;
             font-size: 1em;
         }
@@ -140,49 +147,9 @@
             font-size: 1em;
             color: #333;
         }
-        .quick-actions {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-        .action-card {
-            background: #fff;
-            border-radius: var(--card-radius);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            padding: 28px 24px;
-            flex: 1 1 220px;
-            min-width: 220px;
-            max-width: 260px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-        .action-card h3 {
-            margin: 0 0 12px 0;
-            color: var(--primary);
-            font-size: 1.15em;
-            font-weight: 600;
-        }
-        .action-card button {
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 18px;
-            font-size: 1em;
-            font-weight: 500;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: background 0.18s;
-        }
-        .action-card button:hover {
-            background: #b05867;
-        }
         @media (max-width: 1100px) {
             .main-content { padding: 24px 8px 0 8px; }
             .hospital-details { flex-direction: column; gap: 18px; }
-            .quick-actions { flex-direction: column; gap: 12px; }
         }
     </style>
 </head>
@@ -242,27 +209,32 @@
                     ISO 9001:2015 Certified
                 </div>
             </div>
-        </section>
-        <section class="quick-actions">
-            <div class="action-card">
-                <h3>Manage Patients</h3>
-                <p>Add, view, or update patient details and medical records.</p>
-                <button onclick="location.href='patients.html'">Go to Patients</button>
+            <div class="hospital-vision">
+                <h3>Our Vision &amp; Mission</h3>
+                <p>
+                    <strong>Vision:</strong> To be the most trusted healthcare partner, delivering innovative and compassionate care to every patient, every time.
+                </p>
+                <p>
+                    <strong>Mission:</strong> To provide accessible, affordable, and high-quality healthcare services, while fostering a culture of excellence, empathy, and continuous improvement.
+                </p>
             </div>
-            <div class="action-card">
-                <h3>Manage Doctors</h3>
-                <p>View doctor profiles, specialties, and schedules.</p>
-                <button onclick="location.href='doctors.html'">Go to Doctors</button>
+            <div class="hospital-facilities">
+                <h3>Facilities</h3>
+                <ul>
+                    <li>24/7 Emergency & Trauma Center</li>
+                    <li>Advanced Diagnostic Labs</li>
+                    <li>Modern Operation Theatres</li>
+                    <li>Intensive Care Units (ICU & NICU)</li>
+                    <li>Pharmacy & Blood Bank</li>
+                    <li>Ambulance Services</li>
+                    <li>In-patient & Out-patient Services</li>
+                </ul>
             </div>
-            <div class="action-card">
-                <h3>Book Appointment</h3>
-                <p>Schedule new appointments and manage existing ones.</p>
-                <button onclick="location.href='appointments.html'">Book Appointment</button>
-            </div>
-            <div class="action-card">
-                <h3>Generate Bill</h3>
-                <p>Create and print bills for patient services.</p>
-                <button onclick="location.href='billing.html'">Generate Bill</button>
+            <div class="hospital-history">
+                <h3>Our Journey</h3>
+                <p>
+                    Established in 2005, RSJ Hospital has grown from a small clinic to a leading multi-specialty hospital in the region. With over 200 beds and a team of 100+ doctors, we have served more than 1,00,000 patients with dedication and care.
+                </p>
             </div>
         </section>
     </div>
@@ -287,3 +259,4 @@
         }
     </script>
 </body>
+</html>
