@@ -27,7 +27,32 @@
         button:hover { background: #0c781c; }
         .result-area {
             margin-top: 22px; background: #e3f2fd; border-radius: 8px;
-            padding: 16px; min-height: 60px; white-space: pre-line; font-size: 1em;
+            padding: 16px; min-height: 60px; font-size: 1em;
+        }
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #fff;
+        }
+        .receipt-table th, .receipt-table td {
+            border: 1px solid #b0bec5;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        .receipt-table th {
+            background: #b3848dff;
+            color: #fff;
+        }
+        .receipt-table tfoot td {
+            font-weight: bold;
+            background: #f5faff;
+        }
+        .receipt-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #9c6c4c;
         }
     </style>
 </head>
@@ -70,7 +95,42 @@
             })
             .then(res => res.json())
             .then(data => {
-                resultArea.textContent = data.bill;
+                // Parse the bill string from backend
+                // Example: "🧾 Bill for John\nConsultation Fee: ₹100\nMedicine Charges: ₹50\nRoom Charges: ₹200\n---------------------------\nTotal Amount: ₹350"
+                const lines = data.bill.split('\n');
+                const patientName = lines[0].replace('🧾 Bill for ', '');
+                const consult = lines[1].split(': ₹')[1];
+                const medicine = lines[2].split(': ₹')[1];
+                const room = lines[3].split(': ₹')[1];
+                const total = lines[5].split(': ₹')[1];
+
+                resultArea.innerHTML = `
+                    <div class="receipt-title">Receipt for ${patientName}</div>
+                    <table class="receipt-table">
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                        <tr>
+                            <td>Consultation Fee</td>
+                            <td>${consult}</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine Charges</td>
+                            <td>${medicine}</td>
+                        </tr>
+                        <tr>
+                            <td>Room Charges</td>
+                            <td>${room}</td>
+                        </tr>
+                        <tfoot>
+                            <tr>
+                                <td>Total Amount</td>
+                                <td>${total}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
             })
             .catch(() => {
                 resultArea.textContent = "Server error. Please try again.";
